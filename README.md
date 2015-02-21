@@ -1,2 +1,2 @@
-# AddictedToRed
-Redstone addon mod designed as simple redstone support blocks
+# DungeonBuilder
+Simple mod designed at letting map builders and admins create repeatable dungeons. 
