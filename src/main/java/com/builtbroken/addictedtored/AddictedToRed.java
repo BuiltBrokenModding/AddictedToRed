@@ -26,7 +26,7 @@ public final class AddictedToRed extends AbstractMod
     public static final String BUILD_VERSION = "@BUILD@";
     public static final String VERSION = MAJOR_VERSION + "." + MINOR_VERSION + "." + REVISION_VERSION + "." + BUILD_VERSION;
 
-    public static final String ASSETS_PATH = "/assets/dungeonbuilder/";
+    public static final String ASSETS_PATH = "/assets/addictedtored/";
     public static final String TEXTURE_PATH = "textures/";
     public static final String GUI_PATH = TEXTURE_PATH + "gui/";
     public static final String MODEL_PREFIX = "models/";
