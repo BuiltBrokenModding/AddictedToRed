@@ -16,7 +16,7 @@ public final class AddictedToRed extends AbstractMod
 {
     /** Name of the channel and mod ID. */
     public static final String NAME = "Addicted To Red";
-    public static final String DOMAIN = "dungeonbuilder";
+    public static final String DOMAIN = "addictedtored";
     public static final String PREFIX = DOMAIN + ":";
 
     /** The version of WatchYourStep. */
