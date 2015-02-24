@@ -29,11 +29,11 @@ buildProps.withReader {
 }
 
 if (project.getProperty("bambooshortPlanName") == "BBM-Dev") {
-    group = "dev.builtbroken.mining101"
-    archivesBaseName = "Mining101"
+    group = "dev.builtbroken.addictedtored"
+    archivesBaseName = "AddictedToRed"
 } else {
-    group = "com.builtbroken.,mining101"
-    archivesBaseName = "Mining101"
+    group = "com.builtbroken.addictedtored"
+    archivesBaseName = "AddictedToRed"
 }
 
 version = "${project.minecraft.version}-${config.version.mod.major}.${config.version.mod.minor}.${config.version.mod.revis}b"
@@ -51,7 +51,7 @@ def currentJvm = org.gradle.internal.jvm.Jvm.current()
 println "Current Java version = " + currentJvm
 
 
-archivesBaseName = "Mining101"
+archivesBaseName = "AddictedToRed"
 
 minecraft {
 	replace "@MAJOR@", config.version.mod.major
@@ -88,6 +88,10 @@ repositories {
     maven {
         name 'CB Repo'
         url "http://chickenbones.net/maven/"
+    }
+    maven {
+        name = "ic2"
+        url = "http://maven.ic2.player.to/"
     }
     maven { 
         name 'OC Maven'
