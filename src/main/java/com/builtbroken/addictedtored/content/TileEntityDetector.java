@@ -1,6 +1,7 @@
 package com.builtbroken.addictedtored.content;
 
 import com.builtbroken.addictedtored.AddictedToRed;
+import com.builtbroken.mc.api.tile.IGuiTile;
 import com.builtbroken.mc.core.network.IByteBufWriter;
 import com.builtbroken.mc.core.network.IPacketIDReceiver;
 import com.builtbroken.mc.core.network.packet.AbstractPacket;
@@ -8,14 +9,15 @@ import com.builtbroken.mc.core.network.packet.PacketTile;
 import com.builtbroken.mc.core.network.packet.PacketType;
 import com.builtbroken.mc.lib.transform.vector.Pos;
 import com.builtbroken.mc.prefab.entity.selector.EntitySelectors;
+import com.builtbroken.mc.prefab.gui.ContainerDummy;
 import com.builtbroken.mc.prefab.tile.Tile;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityList;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
@@ -26,7 +28,7 @@ import java.util.List;
  * Basic machine designed to detect entities around it
  * Created by robert on 2/21/2015.
  */
-public class TileEntityDetector extends Tile implements IPacketIDReceiver
+public class TileEntityDetector extends Tile implements IPacketIDReceiver, IGuiTile
 {
     public static int MAX_RANGE = 10;
 
@@ -42,7 +44,7 @@ public class TileEntityDetector extends Tile implements IPacketIDReceiver
 
     public TileEntityDetector()
     {
-        super(AddictedToRed.PREFIX + "detector", Material.rock);
+        super("detector", Material.rock);
     }
 
     @Override
@@ -139,7 +141,7 @@ public class TileEntityDetector extends Tile implements IPacketIDReceiver
         {
             this.range = new Pos(nbt.getCompoundTag("range"));
         }
-        if(nbt.hasKey("selector"))
+        if (nbt.hasKey("selector"))
         {
             this.selector = EntitySelectors.get(nbt.getInteger("selector"));
         }
@@ -157,7 +159,7 @@ public class TileEntityDetector extends Tile implements IPacketIDReceiver
         {
             nbt.setTag("target", target.toNBT());
         }
-        if(selector != EntitySelectors.MOB_SELECTOR)
+        if (selector != EntitySelectors.MOB_SELECTOR)
         {
             nbt.setInteger("selector", selector.ordinal());
         }
@@ -166,7 +168,7 @@ public class TileEntityDetector extends Tile implements IPacketIDReceiver
     @Override
     public boolean read(ByteBuf buf, int id, EntityPlayer player, PacketType type)
     {
-        if( id == 0)
+        if (id == 0)
         {
             this.target = new Pos(buf);
             this.range = new Pos(buf);
@@ -174,6 +176,12 @@ public class TileEntityDetector extends Tile implements IPacketIDReceiver
             return true;
         }
         return false;
+    }
+
+    @Override
+    public AbstractPacket getDescPacket()
+    {
+        return new PacketTile(this, 0, target, range, selector.ordinal());
     }
 
     protected void sendClientPacket()
@@ -187,22 +195,38 @@ public class TileEntityDetector extends Tile implements IPacketIDReceiver
         this.target = target;
         this.selector = EntitySelectors.get(selector);
         recalc();
-        if(isClient())
+        if (isClient())
         {
             sendDescPacket();
         }
     }
 
     @Override
-    public AbstractPacket getDescPacket()
-    {
-        return new PacketTile(this, 0, target, range, selector);
-    }
-
-    @Override
     public Tile newTile()
     {
         return new TileEntityDetector();
+    }
+
+    @Override
+    protected boolean onPlayerRightClick(EntityPlayer player, int side, Pos hit)
+    {
+        if (isServer())
+        {
+            openGui(player, AddictedToRed.INSTANCE);
+        }
+        return true;
+    }
+
+    @Override
+    public Object getServerGuiElement(int ID, EntityPlayer player)
+    {
+        return new ContainerDummy();
+    }
+
+    @Override
+    public Object getClientGuiElement(int ID, EntityPlayer player)
+    {
+        return new GuiEntityDetector(this, player);
     }
 
     /**
