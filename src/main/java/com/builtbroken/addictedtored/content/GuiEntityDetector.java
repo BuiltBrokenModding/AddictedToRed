@@ -38,19 +38,23 @@ public class GuiEntityDetector extends GuiContainerBase
         Keyboard.enableRepeatEvents(true);
         int x = guiLeft + 10;
         int y = guiTop + 40;
-        //TODO hide target if basic tier
-        this.x_field = newField(x, y, 30, "" + machine.target.xi());
-        this.y_field = newField(x + 35, y, 30, "" + machine.target.yi());
-        this.z_field = newField(x + 70, y, 30, "" + machine.target.zi());
-        this.buttonList.add(new GuiButton(0, x + 115, y, 40, 20, "Update"));
+        if(machine.tier != TileEntityDetector.Tier.BASIC)
+        {
+            if(machine.tier == TileEntityDetector.Tier.ADVANCED)
+            {
+                this.x_field = newField(x, y, 30, "" + machine.target.xi());
+                this.y_field = newField(x + 35, y, 30, "" + machine.target.yi());
+                this.z_field = newField(x + 70, y, 30, "" + machine.target.zi());
+                this.buttonList.add(new GuiButton(0, x + 115, y, 40, 20, "Update"));
+                y += 35;
+            }
+            this.rx_field = newField(x, y, 30, "" + machine.range.xi());
+            this.ry_field = newField(x + 35, y, 30, "" + machine.range.yi());
+            this.rz_field = newField(x + 70, y, 30, "" + machine.range.zi());
+            this.buttonList.add(new GuiButton(1, x + 115, y, 40, 20, "Update"));
+            y += 40;
+        }
 
-        y += 35;
-        this.rx_field = newField(x, y, 30, "" + machine.range.xi());
-        this.ry_field = newField(x + 35, y, 30, "" + machine.range.yi());
-        this.rz_field = newField(x + 70, y, 30, "" + machine.range.zi());
-        this.buttonList.add(new GuiButton(1, x + 115, y, 40, 20, "Update"));
-
-        y += 40;
         this.buttonList.add(new GuiButton(2, x, y, 40, 20, "<"));
         this.buttonList.add(new GuiButton(3, x + 115, y, 40, 20, ">"));
     }
@@ -104,10 +108,19 @@ public class GuiEntityDetector extends GuiContainerBase
         super.drawGuiContainerForegroundLayer(mouseX, mouseY);
         //TODO localize
         drawStringCentered("Entity Detector", 85, 10);
-        drawStringCentered("Target", 30, 30);
-        drawStringCentered("Range", 30, 65);
-        drawStringCentered("Selector", 30, 100);
-        drawStringCentered("" + machine.selector.displayName(), 85, 120);
+        int y = 30;
+        if(machine.tier != TileEntityDetector.Tier.BASIC)
+        {
+            drawStringCentered("Target", 30, y);
+            y += 35;
+            if(machine.tier == TileEntityDetector.Tier.ADVANCED)
+            {
+                drawStringCentered("Range", 30, y);
+                y += 35;
+            }
+        }
+        drawStringCentered("Selector", 30, y);
+        drawStringCentered("" + machine.selector.displayName(), 85, y + 20);
         drawStringCentered(errorString, 85, 80, Colors.RED.color);
     }
 }
