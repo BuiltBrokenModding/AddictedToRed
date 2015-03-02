@@ -24,6 +24,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.oredict.ShapedOreRecipe;
@@ -129,5 +130,20 @@ public class TileSelectionDetector extends TileAbstractDetector implements IGuiT
     public IIcon getIcon()
     {
         return basic_icon;
+    }
+
+    @Override
+    public void readFromNBT(NBTTagCompound nbt)
+    {
+        super.readFromNBT(nbt);
+        if(nbt.hasKey("selection"))
+            selection = new Cube(nbt.getCompoundTag("selection"));
+    }
+
+    @Override
+    public void writeToNBT(NBTTagCompound nbt)
+    {
+        super.writeToNBT(nbt);
+        nbt.setTag("selection", selection.toNBT());
     }
 }

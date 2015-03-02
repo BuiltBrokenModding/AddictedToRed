@@ -1,5 +1,6 @@
 package com.builtbroken.addictedtored;
 
+import com.builtbroken.addictedtored.content.detector.TileChatBlock;
 import com.builtbroken.addictedtored.content.detector.entity.TileEntityDetector;
 import com.builtbroken.addictedtored.content.detector.selection.TileSelectionDetector;
 import com.builtbroken.mc.lib.mod.AbstractMod;
@@ -49,6 +50,7 @@ public final class AddictedToRed extends AbstractMod
 
     public static Block basicDetector;
     public static Block selectionDetector;
+    public static Block chatBlock;
 
     public AddictedToRed()
     {
@@ -64,6 +66,7 @@ public final class AddictedToRed extends AbstractMod
 
         basicDetector = getManager().newBlock(PREFIX + "entitydetector", TileEntityDetector.class);
         selectionDetector = getManager().newBlock(PREFIX + "selectiondetector", TileSelectionDetector.class);
+        chatBlock = getManager().newBlock(PREFIX + "chatblock", TileChatBlock.class);
     }
 
     @Mod.EventHandler
