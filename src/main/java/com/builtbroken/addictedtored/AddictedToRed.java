@@ -58,8 +58,8 @@ public final class AddictedToRed extends AbstractMod
     public void preInit(FMLPreInitializationEvent event)
     {
         super.preInit(event);
-        CREATIVE_TAB = new ModCreativeTab("addictedtored");
-        getManager().setTab(CREATIVE_TAB);
+        //CREATIVE_TAB = new ModCreativeTab("addictedtored");
+        //getManager().setTab(CREATIVE_TAB);
 
         basicDetector = getManager().newBlock(PREFIX + "detector", TileEntityDetector.class);
     }
