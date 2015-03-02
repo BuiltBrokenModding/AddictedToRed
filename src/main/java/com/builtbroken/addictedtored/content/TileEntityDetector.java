@@ -186,23 +186,26 @@ public class TileEntityDetector extends Tile implements IPacketIDReceiver, IGuiT
 
     public void setTarget(Pos target)
     {
-        this.target = target;
-        sendPacketToServer(getDescPacket());
+        if(tier == Tier.BASIC)
+        {
+            this.target = target;
+            sendPacketToServer(getDescPacket());
+        }
     }
 
     public void setRange(Pos range)
     {
-        this.range = range;
-        sendPacketToServer(getDescPacket());
+        if(tier != Tier.ADVANCED)
+        {
+            this.range = range;
+            sendPacketToServer(getDescPacket());
+        }
     }
 
     public void setSelector(EntitySelectors selector)
     {
         this.selector = selector;
-        if (isClient())
-        {
-            sendDescPacket();
-        }
+        sendPacketToServer(getDescPacket());
     }
 
     @Override

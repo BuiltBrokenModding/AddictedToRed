@@ -3,6 +3,7 @@ package com.builtbroken.addictedtored.content;
 import com.builtbroken.jlib.data.Colors;
 import com.builtbroken.mc.core.References;
 import com.builtbroken.mc.lib.transform.vector.Pos;
+import com.builtbroken.mc.prefab.entity.selector.EntitySelectors;
 import com.builtbroken.mc.prefab.gui.GuiContainerBase;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
@@ -47,8 +48,11 @@ public class GuiEntityDetector extends GuiContainerBase
         this.rx_field = newField(x, y, 30, "" + machine.range.xi());
         this.ry_field = newField(x + 35, y, 30, "" + machine.range.yi());
         this.rz_field = newField(x + 70, y, 30, "" + machine.range.zi());
-
         this.buttonList.add(new GuiButton(1, x + 115, y, 40, 20, "Update"));
+
+        y += 40;
+        this.buttonList.add(new GuiButton(2, x, y, 40, 20, "<"));
+        this.buttonList.add(new GuiButton(3, x + 115, y, 40, 20, ">"));
     }
 
     @Override
@@ -78,6 +82,20 @@ public class GuiEntityDetector extends GuiContainerBase
                 errorString = "Invalid data";
             }
         }
+        else if(button.id == 2)
+        {
+            int next = machine.selector.ordinal() - 1;
+            if(next < 0)
+                next = EntitySelectors.values().length - 1;
+            machine.setSelector(EntitySelectors.get(next));
+        }
+        else if(button.id == 3)
+        {
+            int next = machine.selector.ordinal() + 1;
+            if(next >= EntitySelectors.values().length)
+                next = 0;
+            machine.setSelector(EntitySelectors.get(next));
+        }
     }
 
     @Override
@@ -88,6 +106,8 @@ public class GuiEntityDetector extends GuiContainerBase
         drawStringCentered("Entity Detector", 85, 10);
         drawStringCentered("Target", 30, 30);
         drawStringCentered("Range", 30, 65);
+        drawStringCentered("Selector", 30, 100);
+        drawStringCentered("" + machine.selector.displayName(), 85, 120);
         drawStringCentered(errorString, 85, 80, Colors.RED.color);
     }
 }
