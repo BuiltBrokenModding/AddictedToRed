@@ -9,4 +9,7 @@ tile.addictedtored:detector.2.name=Advanced Detector
 tile.addictedtored:sdetector.name=Area Detector
 tile.addictedtored:sdetector.0.name=Area Detector
 
+tile.addictedtored:chatblock.name=Chat Emitter
+tile.addictedtored:chatblockr.0.name=Chat Emitter
+
 

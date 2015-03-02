@@ -1,6 +1,6 @@
 package com.builtbroken.addictedtored;
 
-import com.builtbroken.addictedtored.content.detector.TileChatBlock;
+import com.builtbroken.addictedtored.content.chat.TileChatBlock;
 import com.builtbroken.addictedtored.content.detector.entity.TileEntityDetector;
 import com.builtbroken.addictedtored.content.detector.selection.TileSelectionDetector;
 import com.builtbroken.mc.lib.mod.AbstractMod;
@@ -18,12 +18,16 @@ import net.minecraft.block.Block;
 @Mod(modid = AddictedToRed.DOMAIN, name = AddictedToRed.NAME, version = AddictedToRed.VERSION, dependencies = "required-after:VoltzEngine")
 public final class AddictedToRed extends AbstractMod
 {
-    /** Name of the channel and mod ID. */
+    /**
+     * Name of the channel and mod ID.
+     */
     public static final String NAME = "Addicted To Red";
     public static final String DOMAIN = "addictedtored";
     public static final String PREFIX = DOMAIN + ":";
 
-    /** The version of WatchYourStep. */
+    /**
+     * The version of WatchYourStep.
+     */
     public static final String MAJOR_VERSION = "@MAJOR@";
     public static final String MINOR_VERSION = "@MINOR@";
     public static final String REVISION_VERSION = "@REVIS@";
