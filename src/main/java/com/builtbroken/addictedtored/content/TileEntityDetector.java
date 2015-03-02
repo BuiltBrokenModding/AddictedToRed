@@ -33,25 +33,15 @@ public class TileEntityDetector extends Tile implements IPacketIDReceiver, IGuiT
 
     public Tier tier = Tier.BASIC;
 
-    protected Pos target = new Pos(0, -1, 0);
-    protected Pos range = new Pos(0, -1, 0);
+    protected Pos target;
+    protected Pos range = new Pos(5, 5, 5);
     protected EntitySelectors selector = EntitySelectors.MOB_SELECTOR;
     protected List<TrackingData> entities = new ArrayList();
-
-    private AxisAlignedBB bb = null;
-
 
     public TileEntityDetector()
     {
         super("detector", Material.rock);
         this.canEmmitRedstone = true;
-    }
-
-    @Override
-    public void firstTick()
-    {
-        super.firstTick();
-        recalc();
     }
 
     @Override
@@ -64,12 +54,20 @@ public class TileEntityDetector extends Tile implements IPacketIDReceiver, IGuiT
     public void update()
     {
         super.update();
-        if (ticks % 3 == 0)
+        if (isServer() && ticks % 3 == 0)
         {
-            if (bb != null)
+            if (target == null)
             {
+                target = new Pos(this);
+            }
+            if (isRangeValid() && isTargetValid())
+            {
+                System.out.println(range);
                 int s = entities.size();
+
+                AxisAlignedBB bb = AxisAlignedBB.getBoundingBox(target.x() - range.x(), target.y() - range.y(), target.z() - range.z(), target.x() + range.x(), target.y() + range.y(), target.z() + range.z());
                 List<Entity> list = world().selectEntitiesWithinAABB(Entity.class, bb, selector.selector());
+
                 Iterator<TrackingData> it = entities.iterator();
                 while (it.hasNext())
                 {
@@ -99,30 +97,12 @@ public class TileEntityDetector extends Tile implements IPacketIDReceiver, IGuiT
                     world().notifyBlocksOfNeighborChange(xi(), yi(), zi(), this.getTileBlock());
                 }
             }
-            else
-            {
-                recalc();
-            }
         }
     }
 
     public boolean isDetectingEntities()
     {
         return entities.size() > 0;
-    }
-
-    protected void recalc()
-    {
-        if (!isRangeValid())
-        {
-            range = new Pos(5, 5, 5);
-        }
-        if (!isTargetValid())
-        {
-            target = new Pos(this).add(0.5);
-        }
-        bb = AxisAlignedBB.getBoundingBox(target.x() - range.x(), target.y() - range.y(), target.z() - range.z(), target.x() + range.x(), target.y() + range.y(), target.z() + range.z());
-
     }
 
     protected boolean isRangeValid()
@@ -132,7 +112,7 @@ public class TileEntityDetector extends Tile implements IPacketIDReceiver, IGuiT
 
     protected boolean isTargetValid()
     {
-        return target != null && target.isAboveBedrock() && target.distance(new Pos(this)) <= MAX_RANGE;
+        return target != null && target.isAboveBedrock() && target.distance(new Pos(this).add(0.5)) <= MAX_RANGE;
     }
 
     @Override
@@ -174,6 +154,7 @@ public class TileEntityDetector extends Tile implements IPacketIDReceiver, IGuiT
     @Override
     public boolean read(ByteBuf buf, int id, EntityPlayer player, PacketType type)
     {
+        System.out.println("Received packet " + id);
         if (id == 0)
         {
             this.target = new Pos(buf);
@@ -200,46 +181,27 @@ public class TileEntityDetector extends Tile implements IPacketIDReceiver, IGuiT
         this.range = range;
         this.target = target;
         this.selector = EntitySelectors.get(selector);
-        recalc();
-        if (isClient())
-        {
-            sendDescPacket();
-        }
+        sendPacketToServer(getDescPacket());
     }
 
     public void setTarget(Pos target)
     {
-        if (target != this.target)
-        {
-            this.target = target;
-            if (isClient())
-            {
-                sendDescPacket();
-            }
-        }
+        this.target = target;
+        sendPacketToServer(getDescPacket());
     }
 
     public void setRange(Pos range)
     {
-        if (this.range != range)
-        {
-            this.range = range;
-            if (isClient())
-            {
-                sendDescPacket();
-            }
-        }
+        this.range = range;
+        sendPacketToServer(getDescPacket());
     }
 
     public void setSelector(EntitySelectors selector)
     {
-        if (selector != this.selector)
+        this.selector = selector;
+        if (isClient())
         {
-            this.selector = selector;
-            if (isClient())
-            {
-                sendDescPacket();
-            }
+            sendDescPacket();
         }
     }
 
