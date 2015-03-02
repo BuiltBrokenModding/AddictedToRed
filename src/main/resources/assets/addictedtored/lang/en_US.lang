@@ -1,5 +1,9 @@
 ## Master language file
-itemGroup.Mining101=Mining 101
+itemGroup.addictedtored=Addicted To Red
 ## Misc Blocks
+tile.addictedtored:detector.name=Detector
+tile.addictedtored:detector.0.name=Basic Detector
+tile.addictedtored:detector.1.name=Improved Detector
+tile.addictedtored:detector.2.name=Advanced Detector
 
 

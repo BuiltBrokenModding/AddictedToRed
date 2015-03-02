@@ -11,10 +11,14 @@ import com.builtbroken.mc.lib.transform.vector.Pos;
 import com.builtbroken.mc.prefab.entity.selector.EntitySelectors;
 import com.builtbroken.mc.prefab.gui.ContainerDummy;
 import com.builtbroken.mc.prefab.tile.Tile;
+import com.builtbroken.mc.prefab.tile.item.ItemBlockMetadata;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.block.material.Material;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
@@ -33,7 +37,7 @@ public class TileEntityDetector extends Tile implements IPacketIDReceiver, IGuiT
 
     public Tier tier = Tier.BASIC;
 
-    protected Pos target;
+    protected Pos target = new Pos(0, -1, 0);
     protected Pos range = new Pos(5, 5, 5);
     protected EntitySelectors selector = EntitySelectors.MOB_SELECTOR;
     protected List<TrackingData> entities = new ArrayList();
@@ -42,6 +46,18 @@ public class TileEntityDetector extends Tile implements IPacketIDReceiver, IGuiT
     {
         super("detector", Material.rock);
         this.canEmmitRedstone = true;
+        this.itemBlock = ItemBlockMetadata.class;
+        this.hardness = 2;
+        this.resistance = 10;
+    }
+
+    @Override
+    public void firstTick()
+    {
+        super.firstTick();
+        int meta = worldObj.getBlockMetadata(xi(), yi(), zi());
+        if(meta < Tier.values().length)
+            tier = Tier.values()[meta];
     }
 
     @Override
@@ -56,13 +72,12 @@ public class TileEntityDetector extends Tile implements IPacketIDReceiver, IGuiT
         super.update();
         if (isServer() && ticks % 3 == 0)
         {
-            if (target == null)
+            if (target == null || target.yi() == -1)
             {
                 target = new Pos(this);
             }
             if (isRangeValid() && isTargetValid())
             {
-                System.out.println(range);
                 int s = entities.size();
 
                 AxisAlignedBB bb = AxisAlignedBB.getBoundingBox(target.x() - range.x(), target.y() - range.y(), target.z() - range.z(), target.x() + range.x(), target.y() + range.y(), target.z() + range.z());
@@ -234,6 +249,14 @@ public class TileEntityDetector extends Tile implements IPacketIDReceiver, IGuiT
     public Object getClientGuiElement(int ID, EntityPlayer player)
     {
         return new GuiEntityDetector(this, player);
+    }
+
+    @Override
+    public void getSubBlocks(Item item, CreativeTabs creativeTabs, List list)
+    {
+        list.add(new ItemStack(item, 1, 0));
+        list.add(new ItemStack(item, 1, 1));
+        list.add(new ItemStack(item, 1, 2));
     }
 
     /**

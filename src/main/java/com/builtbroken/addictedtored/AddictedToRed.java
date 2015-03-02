@@ -3,6 +3,7 @@ package com.builtbroken.addictedtored;
 import com.builtbroken.addictedtored.content.TileEntityDetector;
 import com.builtbroken.mc.lib.mod.AbstractMod;
 import com.builtbroken.mc.lib.mod.ModCreativeTab;
+import com.builtbroken.mc.prefab.tile.item.ItemBlockMetadata;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -60,7 +61,7 @@ public final class AddictedToRed extends AbstractMod
         CREATIVE_TAB = new ModCreativeTab("addictedtored");
         getManager().setTab(CREATIVE_TAB);
 
-        basicDetector = getManager().newBlock(TileEntityDetector.class);
+        basicDetector = getManager().newBlock(PREFIX + "detector", TileEntityDetector.class);
     }
 
     @Mod.EventHandler
