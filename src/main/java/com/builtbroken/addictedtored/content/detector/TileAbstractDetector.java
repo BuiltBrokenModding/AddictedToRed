@@ -19,7 +19,7 @@ import java.util.List;
 public abstract class TileAbstractDetector extends Tile
 {
     public EntitySelectors selector = EntitySelectors.MOB_SELECTOR;
-    protected List<TrackingData> entities = new ArrayList();
+    public List<TrackingData> entities = new ArrayList();
 
     public TileAbstractDetector(String name, Material material)
     {

@@ -49,12 +49,18 @@ public class DriverChatBlock extends DriverTileEntity
         public Object[] setMsg(final Context context, final Arguments args)
         {
             String msg = args.checkString(0);
-            if(msg.length() > 200)
+            if (msg.length() > 200)
             {
                 throw new IllegalArgumentException("msg is too long");
             }
             tileEntity.setMsg(msg);
             return null;
+        }
+
+        @Callback(doc = "function():int -- distance of detection")
+        public Object[] getRange(final Context context, final Arguments args)
+        {
+            return new Object[]{tileEntity.range};
         }
 
         @Callback(doc = "function():int --  x distance of detection")
@@ -75,19 +81,25 @@ public class DriverChatBlock extends DriverTileEntity
             return new Object[]{tileEntity.range.zi()};
         }
 
-        @Callback(doc = "function():int --  x distance of detection")
+        @Callback(doc = "function():int -- focus point of detection")
+        public Object[] getTarget(final Context context, final Arguments args)
+        {
+            return new Object[]{tileEntity.target};
+        }
+
+        @Callback(doc = "function():int --  x focus point of detection")
         public Object[] getTargetX(final Context context, final Arguments args)
         {
             return new Object[]{tileEntity.target.xi()};
         }
 
-        @Callback(doc = "function():int --  y distance of detection")
+        @Callback(doc = "function():int --  y focus point of detection")
         public Object[] getTargetY(final Context context, final Arguments args)
         {
             return new Object[]{tileEntity.target.yi()};
         }
 
-        @Callback(doc = "function():int --  z distance of detection")
+        @Callback(doc = "function():int --  z focus point of detection")
         public Object[] getTargetZ(final Context context, final Arguments args)
         {
             return new Object[]{tileEntity.target.zi()};
