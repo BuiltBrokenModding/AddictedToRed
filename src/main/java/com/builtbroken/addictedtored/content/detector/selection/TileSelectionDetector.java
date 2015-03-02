@@ -8,27 +8,46 @@ import com.builtbroken.mc.core.network.IPacketIDReceiver;
 import com.builtbroken.mc.core.network.packet.AbstractPacket;
 import com.builtbroken.mc.core.network.packet.PacketTile;
 import com.builtbroken.mc.core.network.packet.PacketType;
+import com.builtbroken.mc.core.registry.implement.IPostInit;
 import com.builtbroken.mc.lib.transform.region.Cube;
 import com.builtbroken.mc.lib.transform.vector.Pos;
 import com.builtbroken.mc.prefab.entity.selector.EntitySelectors;
 import com.builtbroken.mc.prefab.gui.ContainerDummy;
 import com.builtbroken.mc.prefab.tile.Tile;
+import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.IIcon;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 
 /**
  * Created by robert on 3/2/2015.
  */
-public class TileSelectionDetector extends TileAbstractDetector implements IGuiTile, IPacketIDReceiver
+public class TileSelectionDetector extends TileAbstractDetector implements IGuiTile, IPacketIDReceiver, IPostInit
 {
     public Cube selection;
     public int maxRange = 100;
 
+    @SideOnly(Side.CLIENT)
+    public static IIcon basic_icon;
+
     public TileSelectionDetector()
     {
         super("sdetector", Material.rock);
+    }
+
+    @Override
+    public void onPostInit()
+    {
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(AddictedToRed.selectionDetector, 1, 0), "wcw", "cec", "wcw", 'c', Items.ender_eye, 'e', new ItemStack(AddictedToRed.basicDetector, 1, 2), 'w', Items.emerald));
     }
 
     @Override
@@ -92,5 +111,23 @@ public class TileSelectionDetector extends TileAbstractDetector implements IGuiT
     public AbstractPacket getDescPacket()
     {
         return new PacketTile(this, 0, selection != null ? selection : new Cube(), selector.ordinal());
+    }
+
+    @Override @SideOnly(Side.CLIENT)
+    public void registerIcons(IIconRegister reg)
+    {
+        this.basic_icon = reg.registerIcon(AddictedToRed.PREFIX + "detector.area");
+    }
+
+    @Override @SideOnly(Side.CLIENT)
+    public IIcon getIcon(int side, int meta)
+    {
+        return basic_icon;
+    }
+
+    @Override @SideOnly(Side.CLIENT)
+    public IIcon getIcon()
+    {
+        return basic_icon;
     }
 }
