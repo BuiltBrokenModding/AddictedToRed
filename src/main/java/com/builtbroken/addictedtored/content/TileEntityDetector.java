@@ -12,8 +12,11 @@ import com.builtbroken.mc.prefab.entity.selector.EntitySelectors;
 import com.builtbroken.mc.prefab.gui.ContainerDummy;
 import com.builtbroken.mc.prefab.tile.Tile;
 import com.builtbroken.mc.prefab.tile.item.ItemBlockMetadata;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -21,7 +24,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import scala.tools.nsc.backend.icode.Primitives;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -41,6 +46,10 @@ public class TileEntityDetector extends Tile implements IPacketIDReceiver, IGuiT
     protected Pos range = new Pos(5, 5, 5);
     protected EntitySelectors selector = EntitySelectors.MOB_SELECTOR;
     protected List<TrackingData> entities = new ArrayList();
+
+    protected static IIcon basic_icon;
+    protected static IIcon improved_icon;
+    protected static IIcon advanced_icon;
 
     public TileEntityDetector()
     {
@@ -169,7 +178,6 @@ public class TileEntityDetector extends Tile implements IPacketIDReceiver, IGuiT
     @Override
     public boolean read(ByteBuf buf, int id, EntityPlayer player, PacketType type)
     {
-        System.out.println("Received packet " + id);
         if (id == 0)
         {
             this.target = new Pos(buf);
@@ -257,6 +265,42 @@ public class TileEntityDetector extends Tile implements IPacketIDReceiver, IGuiT
         list.add(new ItemStack(item, 1, 0));
         list.add(new ItemStack(item, 1, 1));
         list.add(new ItemStack(item, 1, 2));
+    }
+
+    @Override @SideOnly(Side.CLIENT)
+    public void registerIcons(IIconRegister reg)
+    {
+        this.basic_icon = reg.registerIcon(AddictedToRed.PREFIX + "detector.basic");
+        this.improved_icon = reg.registerIcon(AddictedToRed.PREFIX + "detector.improved");
+        this.advanced_icon = reg.registerIcon(AddictedToRed.PREFIX + "detector.advanced");
+    }
+
+    @Override @SideOnly(Side.CLIENT)
+    public IIcon getIcon(int side, int meta)
+    {
+        if(meta == 1)
+        {
+            return improved_icon;
+        }
+        else if(meta == 2)
+        {
+            return advanced_icon;
+        }
+        return basic_icon;
+    }
+
+    @Override @SideOnly(Side.CLIENT)
+    public IIcon getIcon()
+    {
+        if(tier.ordinal() == 1)
+        {
+            return improved_icon;
+        }
+        else if(tier.ordinal() == 2)
+        {
+            return advanced_icon;
+        }
+        return basic_icon;
     }
 
     /**
