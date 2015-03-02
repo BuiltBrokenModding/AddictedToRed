@@ -63,6 +63,7 @@ public class TileEntityDetector extends Tile implements IPacketIDReceiver, IGuiT
         this.itemBlock = ItemBlockMetadata.class;
         this.hardness = 2;
         this.resistance = 10;
+        this.creativeTab = CreativeTabs.tabRedstone;
     }
 
     @Override
