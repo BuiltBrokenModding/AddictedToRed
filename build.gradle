@@ -71,11 +71,6 @@ processResources {
 	from 'build.properties'
 }
 
-task copyBuildXml(type: Copy) {
-    from 'build.properties'
-    into 'output'
-}
-
 repositories {
     maven {
         name "BuiltBroken"
