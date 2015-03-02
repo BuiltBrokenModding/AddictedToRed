@@ -1,4 +1,4 @@
-package com.builtbroken.addictedtored.content;
+package com.builtbroken.addictedtored.content.detector.selection;
 
 import com.builtbroken.jlib.data.Colors;
 import com.builtbroken.mc.core.References;
@@ -13,9 +13,9 @@ import org.lwjgl.input.Keyboard;
 /**
  * Created by robert on 2/20/2015.
  */
-public class GuiEntityDetector extends GuiContainerBase
+public class GuiSelectionDetector extends GuiContainerBase
 {
-    protected TileEntityDetector machine;
+    protected TileSelectionDetector machine;
 
     protected GuiTextField x_field;
     protected GuiTextField y_field;
@@ -25,7 +25,7 @@ public class GuiEntityDetector extends GuiContainerBase
     protected GuiTextField rz_field;
     protected String errorString = "";
 
-    public GuiEntityDetector(TileEntityDetector launcher, EntityPlayer player)
+    public GuiSelectionDetector(TileSelectionDetector launcher, EntityPlayer player)
     {
         this.machine = launcher;
         this.baseTexture = References.GUI__MC_EMPTY_FILE;
@@ -38,22 +38,18 @@ public class GuiEntityDetector extends GuiContainerBase
         Keyboard.enableRepeatEvents(true);
         int x = guiLeft + 10;
         int y = guiTop + 40;
-        if(machine.tier != TileEntityDetector.Tier.BASIC)
-        {
-            if(machine.tier == TileEntityDetector.Tier.ADVANCED)
-            {
-                this.x_field = newField(x, y, 30, "" + machine.target.xi());
-                this.y_field = newField(x + 35, y, 30, "" + machine.target.yi());
-                this.z_field = newField(x + 70, y, 30, "" + machine.target.zi());
-                this.buttonList.add(new GuiButton(0, x + 115, y, 40, 20, "Update"));
-                y += 35;
-            }
-            this.rx_field = newField(x, y, 30, "" + machine.range.xi());
-            this.ry_field = newField(x + 35, y, 30, "" + machine.range.yi());
-            this.rz_field = newField(x + 70, y, 30, "" + machine.range.zi());
-            this.buttonList.add(new GuiButton(1, x + 115, y, 40, 20, "Update"));
-            y += 40;
-        }
+
+        this.x_field = newField(x, y, 30, "" + (int) machine.selection.pointOne().x());
+        this.y_field = newField(x + 35, y, 30, "" + (int) machine.selection.pointOne().y());
+        this.z_field = newField(x + 70, y, 30, "" + (int) machine.selection.pointOne().z());
+        this.buttonList.add(new GuiButton(0, x + 115, y, 40, 20, "Update"));
+        y += 35;
+
+        this.rx_field = newField(x, y, 30, "" + (int) machine.selection.pointTwo().x());
+        this.ry_field = newField(x + 35, y, 30, "" + (int) machine.selection.pointTwo().y());
+        this.rz_field = newField(x + 70, y, 30, "" + (int) machine.selection.pointTwo().z());
+        this.buttonList.add(new GuiButton(1, x + 115, y, 40, 20, "Update"));
+        y += 40;
 
         this.buttonList.add(new GuiButton(2, x, y, 40, 20, "<"));
         this.buttonList.add(new GuiButton(3, x + 115, y, 40, 20, ">"));
@@ -71,32 +67,27 @@ public class GuiEntityDetector extends GuiContainerBase
             {
                 if (button.id == 0)
                 {
-                    Pos target = new Pos(Integer.parseInt(x_field.getText()), Integer.parseInt(y_field.getText()), Integer.parseInt(z_field.getText()));
-                    machine.setTarget(target);
+                    Pos one = new Pos(Integer.parseInt(x_field.getText()), Integer.parseInt(y_field.getText()), Integer.parseInt(z_field.getText()));
+                    Pos two = new Pos(Integer.parseInt(rx_field.getText()), Integer.parseInt(ry_field.getText()), Integer.parseInt(rz_field.getText()));
+                    machine.setSelection(one, two);
                 }
-                else
-                {
-                    Pos range = new Pos(Integer.parseInt(rx_field.getText()), Integer.parseInt(ry_field.getText()), Integer.parseInt(rz_field.getText()));
-                    machine.setRange(range);
-                }
-            }
-            catch (NumberFormatException e)
+            } catch (NumberFormatException e)
             {
                 //Ignore as this is expected
                 errorString = "Invalid data";
             }
         }
-        else if(button.id == 2)
+        else if (button.id == 2)
         {
             int next = machine.selector.ordinal() - 1;
-            if(next < 0)
+            if (next < 0)
                 next = EntitySelectors.values().length - 1;
             machine.setSelector(EntitySelectors.get(next));
         }
-        else if(button.id == 3)
+        else if (button.id == 3)
         {
             int next = machine.selector.ordinal() + 1;
-            if(next >= EntitySelectors.values().length)
+            if (next >= EntitySelectors.values().length)
                 next = 0;
             machine.setSelector(EntitySelectors.get(next));
         }
@@ -107,18 +98,12 @@ public class GuiEntityDetector extends GuiContainerBase
     {
         super.drawGuiContainerForegroundLayer(mouseX, mouseY);
         //TODO localize
-        drawStringCentered("Entity Detector", 85, 10);
+        drawStringCentered("Area Detector", 85, 10);
         int y = 30;
-        if(machine.tier != TileEntityDetector.Tier.BASIC)
-        {
-            drawStringCentered("Target", 30, y);
-            y += 35;
-            if(machine.tier == TileEntityDetector.Tier.ADVANCED)
-            {
-                drawStringCentered("Range", 30, y);
-                y += 35;
-            }
-        }
+        drawStringCentered("Point One", 30, y);
+        y += 35;
+        drawStringCentered("Point Two", 30, y);
+        y += 35;
         drawStringCentered("Selector", 30, y);
         drawStringCentered("" + machine.selector.displayName(), 85, y + 20);
         drawStringCentered(errorString, 85, 80, Colors.RED.color);

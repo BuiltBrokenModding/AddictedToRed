@@ -6,4 +6,7 @@ tile.addictedtored:detector.0.name=Basic Detector
 tile.addictedtored:detector.1.name=Improved Detector
 tile.addictedtored:detector.2.name=Advanced Detector
 
+tile.addictedtored:sdetector.name=Area Detector
+tile.addictedtored:sdetector.0.name=Area Detector
+
 
