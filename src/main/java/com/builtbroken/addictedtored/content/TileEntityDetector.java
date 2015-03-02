@@ -17,7 +17,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
@@ -45,6 +44,7 @@ public class TileEntityDetector extends Tile implements IPacketIDReceiver, IGuiT
     public TileEntityDetector()
     {
         super("detector", Material.rock);
+        this.canEmmitRedstone = true;
     }
 
     @Override
@@ -55,6 +55,12 @@ public class TileEntityDetector extends Tile implements IPacketIDReceiver, IGuiT
     }
 
     @Override
+    public int getStrongRedstonePower(int side)
+    {
+        return isDetectingEntities() ? 15 : 0;
+    }
+
+    @Override
     public void update()
     {
         super.update();
@@ -62,6 +68,7 @@ public class TileEntityDetector extends Tile implements IPacketIDReceiver, IGuiT
         {
             if (bb != null)
             {
+                int s = entities.size();
                 List<Entity> list = world().selectEntitiesWithinAABB(Entity.class, bb, selector.selector());
                 Iterator<TrackingData> it = entities.iterator();
                 while (it.hasNext())
@@ -86,10 +93,15 @@ public class TileEntityDetector extends Tile implements IPacketIDReceiver, IGuiT
                 {
                     entities.add(new TrackingData(entity, this));
                 }
+
+                if (s != entities.size())
+                {
+                    world().notifyBlocksOfNeighborChange(xi(), yi(), zi(), this.getTileBlock());
+                }
             }
             else
             {
-                //TODO display error message
+                recalc();
             }
         }
     }
@@ -109,14 +121,8 @@ public class TileEntityDetector extends Tile implements IPacketIDReceiver, IGuiT
         {
             target = new Pos(this).add(0.5);
         }
-        if (isRangeValid() && isTargetValid())
-        {
-            bb = AxisAlignedBB.getBoundingBox(target.x() + range.x(), target.y() + range.y(), target.z() + range.z(), target.x() - range.x(), target.y() - range.y(), target.z() - range.z());
-        }
-        else
-        {
-            bb = null;
-        }
+        bb = AxisAlignedBB.getBoundingBox(target.x() - range.x(), target.y() - range.y(), target.z() - range.z(), target.x() + range.x(), target.y() + range.y(), target.z() + range.z());
+
     }
 
     protected boolean isRangeValid()
@@ -203,7 +209,7 @@ public class TileEntityDetector extends Tile implements IPacketIDReceiver, IGuiT
 
     public void setTarget(Pos target)
     {
-        if(target != this.target)
+        if (target != this.target)
         {
             this.target = target;
             if (isClient())
@@ -215,7 +221,7 @@ public class TileEntityDetector extends Tile implements IPacketIDReceiver, IGuiT
 
     public void setRange(Pos range)
     {
-        if(this.range != range)
+        if (this.range != range)
         {
             this.range = range;
             if (isClient())
@@ -227,7 +233,7 @@ public class TileEntityDetector extends Tile implements IPacketIDReceiver, IGuiT
 
     public void setSelector(EntitySelectors selector)
     {
-        if(selector != this.selector)
+        if (selector != this.selector)
         {
             this.selector = selector;
             if (isClient())

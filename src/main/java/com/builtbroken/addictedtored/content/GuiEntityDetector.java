@@ -75,7 +75,7 @@ public class GuiEntityDetector extends GuiContainerBase
             catch (NumberFormatException e)
             {
                 //Ignore as this is expected
-                errorString = "Invalid target data";
+                errorString = "Invalid data";
             }
         }
     }
