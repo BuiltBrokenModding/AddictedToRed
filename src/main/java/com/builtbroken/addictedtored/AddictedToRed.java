@@ -1,5 +1,6 @@
 package com.builtbroken.addictedtored;
 
+import com.builtbroken.addictedtored.content.OCProxy;
 import com.builtbroken.addictedtored.content.chat.TileChatBlock;
 import com.builtbroken.addictedtored.content.detector.entity.TileEntityDetector;
 import com.builtbroken.addictedtored.content.detector.selection.TileSelectionDetector;
@@ -65,6 +66,7 @@ public final class AddictedToRed extends AbstractMod
     public void preInit(FMLPreInitializationEvent event)
     {
         super.preInit(event);
+        loader.applyModule(OCProxy.class);
         //CREATIVE_TAB = new ModCreativeTab("addictedtored");
         //getManager().setTab(CREATIVE_TAB);
 

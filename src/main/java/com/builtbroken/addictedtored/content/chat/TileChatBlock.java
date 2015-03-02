@@ -61,6 +61,11 @@ public class TileChatBlock extends Tile implements IGuiTile, IPacketIDReceiver, 
     @Override
     public void onNeighborChanged(Block block)
     {
+        trigger();
+    }
+
+    public void trigger()
+    {
         boolean red = world().isBlockIndirectlyGettingPowered(xi(), yi(), zi());
         if (target == null || !target.isAboveBedrock())
         {
@@ -172,19 +177,22 @@ public class TileChatBlock extends Tile implements IGuiTile, IPacketIDReceiver, 
         return true;
     }
 
-    @Override @SideOnly(Side.CLIENT)
+    @Override
+    @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister reg)
     {
         this.basic_icon = reg.registerIcon(AddictedToRed.PREFIX + "chat.basic");
     }
 
-    @Override @SideOnly(Side.CLIENT)
+    @Override
+    @SideOnly(Side.CLIENT)
     public IIcon getIcon(int side, int meta)
     {
         return basic_icon;
     }
 
-    @Override @SideOnly(Side.CLIENT)
+    @Override
+    @SideOnly(Side.CLIENT)
     public IIcon getIcon()
     {
         return basic_icon;
