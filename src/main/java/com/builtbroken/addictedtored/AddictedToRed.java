@@ -6,6 +6,7 @@ import com.builtbroken.addictedtored.content.detector.entity.TileEntityDetector;
 import com.builtbroken.addictedtored.content.detector.selection.TileSelectionDetector;
 import com.builtbroken.mc.lib.mod.AbstractMod;
 import com.builtbroken.mc.lib.mod.ModCreativeTab;
+import com.builtbroken.mc.lib.mod.compat.Mods;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -66,7 +67,7 @@ public final class AddictedToRed extends AbstractMod
     public void preInit(FMLPreInitializationEvent event)
     {
         super.preInit(event);
-        loader.applyModule(OCProxy.class);
+        loader.applyModule(OCProxy.class, Mods.OC.isLoaded());
         //CREATIVE_TAB = new ModCreativeTab("addictedtored");
         //getManager().setTab(CREATIVE_TAB);
 
