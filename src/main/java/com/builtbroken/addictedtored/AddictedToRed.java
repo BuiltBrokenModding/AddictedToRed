@@ -60,7 +60,7 @@ public final class AddictedToRed extends AbstractMod
 
     public AddictedToRed()
     {
-        super(DOMAIN);
+        super(DOMAIN, "AddictedToRed");
     }
 
     @Mod.EventHandler
