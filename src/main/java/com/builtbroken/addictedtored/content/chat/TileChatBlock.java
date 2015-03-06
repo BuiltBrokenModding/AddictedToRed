@@ -1,6 +1,7 @@
 package com.builtbroken.addictedtored.content.chat;
 
 import com.builtbroken.addictedtored.AddictedToRed;
+import com.builtbroken.addictedtored.content.TileAbstractRedstone;
 import com.builtbroken.mc.api.tile.IGuiTile;
 import com.builtbroken.mc.core.network.IPacketIDReceiver;
 import com.builtbroken.mc.core.network.packet.AbstractPacket;
@@ -34,11 +35,10 @@ import java.util.List;
 /**
  * Created by robert on 3/2/2015.
  */
-public class TileChatBlock extends Tile implements IGuiTile, IPacketIDReceiver, IPostInit
+public class TileChatBlock extends TileAbstractRedstone implements IGuiTile, IPacketIDReceiver, IPostInit
 {
     public static IIcon basic_icon;
 
-    public boolean prev_signal = false;
     public String output_msg = "Hello!";
 
     public Pos target = new Pos(0, -1, 0);
@@ -59,14 +59,8 @@ public class TileChatBlock extends Tile implements IGuiTile, IPacketIDReceiver, 
     }
 
     @Override
-    public void onNeighborChanged(Block block)
+    public void triggerRedstone()
     {
-        trigger();
-    }
-
-    public void trigger()
-    {
-        boolean red = world().isBlockIndirectlyGettingPowered(xi(), yi(), zi());
         if (target == null || !target.isAboveBedrock())
         {
             target = new Pos(this).add(0.5);
@@ -75,16 +69,13 @@ public class TileChatBlock extends Tile implements IGuiTile, IPacketIDReceiver, 
         {
             range = new Pos(5, 5, 5);
         }
-        if (!prev_signal && red)
+
+        AxisAlignedBB bb = AxisAlignedBB.getBoundingBox(target.x() - range.x(), target.y() - range.y(), target.z() - range.z(), target.x() + range.x(), target.y() + range.y(), target.z() + range.z());
+        List<EntityPlayer> list = world().getEntitiesWithinAABB(EntityPlayer.class, bb);
+        for (EntityPlayer player : list)
         {
-            AxisAlignedBB bb = AxisAlignedBB.getBoundingBox(target.x() - range.x(), target.y() - range.y(), target.z() - range.z(), target.x() + range.x(), target.y() + range.y(), target.z() + range.z());
-            List<EntityPlayer> list = world().getEntitiesWithinAABB(EntityPlayer.class, bb);
-            for (EntityPlayer player : list)
-            {
-                player.addChatComponentMessage(new ChatComponentText("" + output_msg));
-            }
+            player.addChatComponentMessage(new ChatComponentText("" + output_msg));
         }
-        prev_signal = red;
     }
 
     @Override

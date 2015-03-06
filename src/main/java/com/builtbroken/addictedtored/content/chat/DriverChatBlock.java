@@ -35,7 +35,7 @@ public class DriverChatBlock extends DriverTileEntity
         @Callback(doc = "function() --  Triggers the msg to display.")
         public Object[] triggerMsg(final Context context, final Arguments args)
         {
-            tileEntity.trigger();
+            tileEntity.triggerRedstone();
             return null;
         }
 
