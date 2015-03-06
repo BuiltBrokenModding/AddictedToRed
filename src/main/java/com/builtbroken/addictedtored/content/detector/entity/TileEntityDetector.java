@@ -1,6 +1,7 @@
 package com.builtbroken.addictedtored.content.detector.entity;
 
 import com.builtbroken.addictedtored.AddictedToRed;
+import com.builtbroken.addictedtored.content.Tier;
 import com.builtbroken.addictedtored.content.detector.TileAbstractDetector;
 import com.builtbroken.addictedtored.content.detector.TrackingData;
 import com.builtbroken.mc.api.tile.IGuiTile;
@@ -247,21 +248,5 @@ public class TileEntityDetector extends TileAbstractDetector implements IPacketI
             return advanced_icon;
         }
         return basic_icon;
-    }
-
-    public static enum Tier
-    {
-        /**
-         * Can only select detection type
-         */
-        BASIC,
-        /**
-         * Can select range
-         */
-        IMPROVED,
-        /**
-         * Can select target, and has a whitelist/blacklist
-         */
-        ADVANCED;
     }
 }

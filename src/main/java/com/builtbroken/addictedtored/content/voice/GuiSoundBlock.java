@@ -1,8 +1,7 @@
-package com.builtbroken.addictedtored.content.chat;
+package com.builtbroken.addictedtored.content.voice;
 
 import com.builtbroken.jlib.data.Colors;
 import com.builtbroken.mc.core.References;
-import com.builtbroken.mc.lib.transform.vector.Pos;
 import com.builtbroken.mc.prefab.gui.GuiContainerBase;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
@@ -12,20 +11,16 @@ import org.lwjgl.input.Keyboard;
 /**
  * Created by robert on 2/20/2015.
  */
-public class GuiChatBlock extends GuiContainerBase
+public class GuiSoundBlock extends GuiContainerBase
 {
-    protected TileChatBlock machine;
+    protected TileSoundEmitter machine;
 
-    protected GuiTextField x_field;
-    protected GuiTextField y_field;
-    protected GuiTextField z_field;
-    protected GuiTextField rx_field;
-    protected GuiTextField ry_field;
-    protected GuiTextField rz_field;
-    protected GuiTextField msg_field;
+    protected GuiTextField volume_field;
+    protected GuiTextField pitch_field;
+    protected GuiTextField sound_field;
     protected String errorString = "";
 
-    public GuiChatBlock(TileChatBlock launcher, EntityPlayer player)
+    public GuiSoundBlock(TileSoundEmitter launcher, EntityPlayer player)
     {
         this.machine = launcher;
         this.baseTexture = References.GUI__MC_EMPTY_FILE;
@@ -38,18 +33,15 @@ public class GuiChatBlock extends GuiContainerBase
         Keyboard.enableRepeatEvents(true);
         int x = guiLeft + 10;
         int y = guiTop + 40;
-        this.x_field = newField(x, y, 30, "" + machine.target.xi());
-        this.y_field = newField(x + 35, y, 30, "" + machine.target.yi());
-        this.z_field = newField(x + 70, y, 30, "" + machine.target.zi());
+        this.volume_field = newField(x, y, 30, "" + machine.getVolume());
         this.buttonList.add(new GuiButton(0, x + 115, y, 40, 20, "Update"));
         y += 35;
-        this.rx_field = newField(x, y, 30, "" + machine.range.xi());
-        this.ry_field = newField(x + 35, y, 30, "" + machine.range.yi());
-        this.rz_field = newField(x + 70, y, 30, "" + machine.range.zi());
+        this.pitch_field = newField(x, y, 30, "" + machine.getPitch());
         this.buttonList.add(new GuiButton(1, x + 115, y, 40, 20, "Update"));
         y += 40;
-        this.msg_field = newField(x, y, 100, "" + machine.output_msg);
-        this.msg_field.setMaxStringLength(200);
+        this.sound_field = newField(x, y, 100, "");
+        this.sound_field.setMaxStringLength(2000);
+        this.sound_field.setText("" + machine.getSoundName());
         this.buttonList.add(new GuiButton(2, x + 115, y, 40, 20, "Update"));
     }
 
@@ -63,15 +55,13 @@ public class GuiChatBlock extends GuiContainerBase
         {
             try
             {
-                if (button.id == 0)
+                if(button.id == 0)
                 {
-                    Pos target = new Pos(Integer.parseInt(x_field.getText()), Integer.parseInt(y_field.getText()), Integer.parseInt(z_field.getText()));
-                    machine.setTarget(target);
+                    machine.setVolume(Float.parseFloat(volume_field.getText()));
                 }
                 else
                 {
-                    Pos range = new Pos(Integer.parseInt(rx_field.getText()), Integer.parseInt(ry_field.getText()), Integer.parseInt(rz_field.getText()));
-                    machine.setRange(range);
+                    machine.setPitch(Float.parseFloat(pitch_field.getText()));
                 }
             } catch (NumberFormatException e)
             {
@@ -81,7 +71,7 @@ public class GuiChatBlock extends GuiContainerBase
         }
         else if(button.id == 2)
         {
-            machine.setMsg(msg_field.getText());
+            machine.setSoundName(sound_field.getText());
         }
     }
 
@@ -90,13 +80,13 @@ public class GuiChatBlock extends GuiContainerBase
     {
         super.drawGuiContainerForegroundLayer(mouseX, mouseY);
         //TODO localize
-        drawStringCentered("Chat Block", 85, 10);
+        drawStringCentered("Entity Detector", 85, 10);
         int y = 30;
-        drawStringCentered("Target", 30, y);
+        drawStringCentered("Volume", 30, y);
         y += 35;
-        drawStringCentered("Range", 30, y);
+        drawStringCentered("Pitch", 30, y);
         y += 35;
-        drawStringCentered("Msg", 30, y);
+        drawStringCentered("Sound Name", 35, y);
         drawStringCentered(errorString, 85, 80, Colors.RED.color);
     }
 }
