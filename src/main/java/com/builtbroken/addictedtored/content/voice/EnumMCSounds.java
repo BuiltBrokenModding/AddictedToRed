@@ -1,5 +1,9 @@
 package com.builtbroken.addictedtored.content.voice;
 
+import com.builtbroken.jlib.data.vector.IPos3D;
+import com.builtbroken.mc.api.IWorldPosition;
+import net.minecraft.world.World;
+
 import java.util.HashMap;
 
 /**
@@ -44,9 +48,9 @@ public enum EnumMCSounds
     PIG_SAY("mob.pig.say", "pig", "say"),
     PIG_DEATH("mob.pig.death", "pig", "death"),
     PIG_STEP("mob.pig.step", "pig", "step"),
-    SHEEP_SAY("mob.sheep.say","sheep", "say"),
-    SHEEP_STEP("mob.sheep.step","sheep", "step"),
-    SHEEP_SHEAR("mob.sheep.shear","sheep", "shear"),
+    SHEEP_SAY("mob.sheep.say", "sheep", "say"),
+    SHEEP_STEP("mob.sheep.step", "sheep", "step"),
+    SHEEP_SHEAR("mob.sheep.shear", "sheep", "shear"),
     WOLF_STEP("mob.wolf.step", "wolf", "step"),
     WOLF_GROWL("mob.wolf.growl", "wolf", "growl"),
     WOLF_WHINE("mob.wolf.whine", "wolf", "whine"),
@@ -96,7 +100,8 @@ public enum EnumMCSounds
     private static boolean built = false;
 
     //List of sounds by category for sorting in GUIs <Category, <Name, Sound String or Enum Entry>>
-    public final HashMap<String, HashMap<String, Object>> catToSoundMap = new HashMap();
+    public static final HashMap<String, HashMap<String, Object>> catToSoundMap = new HashMap();
+    private static boolean init = false;
 
     private EnumMCSounds(String sound, String cat, String name)
     {
@@ -110,10 +115,65 @@ public enum EnumMCSounds
         this.name = name;
         this.volume = volume;
         this.pitch = pitch;
-        if(!catToSoundMap.containsKey(cat))
+    }
+
+    public static void init()
+    {
+        if (!init)
         {
-            catToSoundMap.put(cat, new HashMap());
+            init = true;
+            for (EnumMCSounds entry : values())
+            {
+                if (!catToSoundMap.containsKey(entry.cat))
+                {
+                    catToSoundMap.put(entry.cat, new HashMap());
+                }
+                catToSoundMap.get(entry.cat).put(entry.name, entry);
+            }
         }
-        catToSoundMap.get(cat).put(name, this);
+    }
+
+    public static void playSound(String cat, String name, IWorldPosition pos, float volume, float pitch)
+    {
+        if (catToSoundMap.containsKey(cat) && catToSoundMap.get(cat) != null)
+        {
+            if (catToSoundMap.get(cat).containsKey(name))
+            {
+                Object obj = catToSoundMap.get(cat).get(name);
+                if (obj instanceof EnumMCSounds)
+                {
+                    ((EnumMCSounds) obj).playSound(pos.world(), pos.x(), pos.y(), pos.z(), volume, pitch);
+                }
+                else if (obj instanceof String)
+                {
+                    pos.world().playSound(pos.x(), pos.y(), pos.z(), (String) obj, volume, pitch, true);
+                }
+            }
+        }
+    }
+
+    public void playSound(IWorldPosition pos)
+    {
+        playSound(pos.world(), pos.x(), pos.y(), pos.z(), volume, pitch);
+    }
+
+    public void playSound(World world, IPos3D pos)
+    {
+        playSound(world, pos.x(), pos.y(), pos.z(), volume, pitch);
+    }
+
+    public void playSound(World world, double x, double y, double z)
+    {
+        playSound(world, x, y, z, volume, pitch);
+    }
+
+    public void playSound(World world, double x, double y, double z, float volume, float pitch)
+    {
+        playSound(world, x, y, z, volume, pitch);
+    }
+
+    public void playSound(World world, double x, double y, double z, float volume, float pitch, boolean delay)
+    {
+        world.playSound(x, y, z, sound, volume, pitch, delay);
     }
 }

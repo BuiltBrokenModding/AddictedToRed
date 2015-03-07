@@ -8,6 +8,7 @@ import li.cil.oc.api.network.ManagedEnvironment;
 import li.cil.oc.api.prefab.DriverTileEntity;
 import li.cil.oc.integration.ManagedTileEntityEnvironment;
 import net.minecraft.world.World;
+import com.builtbroken.addictedtored.content.Tier;
 
 /**
  * Created by robert on 3/2/2015.
@@ -24,9 +25,9 @@ public class DriverEntityDetector extends DriverTileEntity
     public ManagedEnvironment createEnvironment(World world, int x, int y, int z)
     {
         TileEntityDetector tile = (TileEntityDetector) world.getTileEntity(x, y, z);
-        if (tile.tier == TileEntityDetector.Tier.IMPROVED)
+        if (tile.tier == Tier.IMPROVED)
             return new EImprovedTier(tile);
-        if (tile.tier == TileEntityDetector.Tier.ADVANCED)
+        if (tile.tier == Tier.ADVANCED)
             return new EAdvancedTier(tile);
         return new EBasicTier(tile);
     }

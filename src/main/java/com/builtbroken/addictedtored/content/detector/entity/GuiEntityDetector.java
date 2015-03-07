@@ -1,5 +1,6 @@
 package com.builtbroken.addictedtored.content.detector.entity;
 
+import com.builtbroken.addictedtored.content.Tier;
 import com.builtbroken.jlib.data.Colors;
 import com.builtbroken.mc.core.References;
 import com.builtbroken.mc.lib.transform.vector.Pos;
@@ -38,9 +39,9 @@ public class GuiEntityDetector extends GuiContainerBase
         Keyboard.enableRepeatEvents(true);
         int x = guiLeft + 10;
         int y = guiTop + 40;
-        if(machine.tier != TileEntityDetector.Tier.BASIC)
+        if(machine.tier != Tier.BASIC)
         {
-            if(machine.tier == TileEntityDetector.Tier.ADVANCED)
+            if(machine.tier == Tier.ADVANCED)
             {
                 this.x_field = newField(x, y, 30, "" + machine.target.xi());
                 this.y_field = newField(x + 35, y, 30, "" + machine.target.yi());
@@ -109,11 +110,11 @@ public class GuiEntityDetector extends GuiContainerBase
         //TODO localize
         drawStringCentered("Entity Detector", 85, 10);
         int y = 30;
-        if(machine.tier != TileEntityDetector.Tier.BASIC)
+        if(machine.tier != Tier.BASIC)
         {
             drawStringCentered("Target", 30, y);
             y += 35;
-            if(machine.tier == TileEntityDetector.Tier.ADVANCED)
+            if(machine.tier == Tier.ADVANCED)
             {
                 drawStringCentered("Range", 30, y);
                 y += 35;

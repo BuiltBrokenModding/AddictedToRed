@@ -7,6 +7,7 @@ import com.builtbroken.mc.api.tile.IGuiTile;
 import com.builtbroken.mc.core.network.packet.AbstractPacket;
 import com.builtbroken.mc.core.network.packet.PacketTile;
 import com.builtbroken.mc.core.network.packet.PacketType;
+import com.builtbroken.mc.lib.transform.vector.Location;
 import com.builtbroken.mc.lib.transform.vector.Pos;
 import com.builtbroken.mc.prefab.gui.ContainerDummy;
 import com.builtbroken.mc.prefab.tile.Tile;
@@ -18,6 +19,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 
 import java.util.List;
 
@@ -27,7 +29,11 @@ import java.util.List;
  */
 public class TileSoundEmitter extends TileAbstractRedstone implements IGuiTile
 {
-    protected String sound_name = "mob.villager.haggle";
+    protected String sound = "mob.villager.haggle";
+
+    protected String sound_cat = EnumMCSounds.VILLAGER_HAGGLE.cat;
+    protected String sound_name = EnumMCSounds.VILLAGER_HAGGLE.name;
+
     protected float volume = 5;
     protected float pitch = 1;
 
@@ -43,7 +49,7 @@ public class TileSoundEmitter extends TileAbstractRedstone implements IGuiTile
     {
         super.firstTick();
         int meta = worldObj.getBlockMetadata(xi(), yi(), zi());
-        if(meta < Tier.values().length)
+        if (meta < Tier.values().length)
             tier = Tier.values()[meta];
     }
 
@@ -51,21 +57,44 @@ public class TileSoundEmitter extends TileAbstractRedstone implements IGuiTile
     public void triggerRedstone()
     {
         if (isClient())
-            world().playSound(x() + 0.5, y() + 0.5, z() + 0.5, getSoundName(), getVolume(), getPitch(), true);
+        {
+            if (tier != Tier.ADVANCED)
+            {
+                EnumMCSounds.playSound(sound_cat, sound_name, new Location((TileEntity)this), getVolume(), getPitch());
+            }
+            else
+            {
+                world().playSound(x() + 0.5, y() + 0.5, z() + 0.5, getSoundName(), getVolume(), getPitch(), true);
+            }
+        }
         else
+        {
             sendRedstoneSignalPacket();
+        }
     }
 
     @Override
     public AbstractPacket getDescPacket()
     {
-        return new PacketTile(this, 0, sound_name, volume, pitch);
+        if (tier != Tier.ADVANCED)
+        {
+            return new PacketTile(this, 0, sound_cat, sound_name, volume, pitch);
+        }
+        return new PacketTile(this, 1, sound, volume, pitch);
     }
 
     @Override
     public boolean read(ByteBuf buf, int id, EntityPlayer player, PacketType type)
     {
         if (id == 0)
+        {
+            this.sound_cat = ByteBufUtils.readUTF8String(buf);
+            this.sound_name = ByteBufUtils.readUTF8String(buf);
+            this.volume = buf.readFloat();
+            this.pitch = buf.readFloat();
+            return true;
+        }
+        else if (id == 1)
         {
             this.sound_name = ByteBufUtils.readUTF8String(buf);
             this.volume = buf.readFloat();
@@ -83,14 +112,14 @@ public class TileSoundEmitter extends TileAbstractRedstone implements IGuiTile
 
     public String getSoundName()
     {
-        return sound_name;
+        return sound;
     }
 
     public void setSoundName(String sound_name)
     {
-        if(tier != Tier.BASIC)
+        if (tier != Tier.BASIC)
         {
-            this.sound_name = sound_name;
+            this.sound = sound_name;
             if (isClient())
                 sendPacketToServer(getDescPacket());
         }
@@ -120,13 +149,26 @@ public class TileSoundEmitter extends TileAbstractRedstone implements IGuiTile
             sendPacketToServer(getDescPacket());
     }
 
+    public void setSound(String cat, String name)
+    {
+        if (tier != Tier.ADVANCED)
+        {
+            this.sound_cat = cat;
+            this.sound_name = name;
+            if (isClient())
+                sendPacketToServer(getDescPacket());
+        }
+    }
+
     @Override
     public void writeToNBT(NBTTagCompound nbt)
     {
         super.writeToNBT(nbt);
         nbt.setFloat("volume", volume);
         nbt.setFloat("pitch", pitch);
-        nbt.setString("sound", sound_name);
+        nbt.setString("sound", sound);
+        nbt.setString("sound_name", sound_name);
+        nbt.setString("sound_cat", sound_cat);
     }
 
     @Override
@@ -134,15 +176,15 @@ public class TileSoundEmitter extends TileAbstractRedstone implements IGuiTile
     {
         super.readFromNBT(nbt);
         if (nbt.hasKey("volume"))
-        {
             this.volume = nbt.getFloat("volume");
-        }
         if (nbt.hasKey("pitch"))
-        {
             this.pitch = nbt.getFloat("pitch");
-        }
         if (nbt.hasKey("sound"))
-            this.sound_name = nbt.getString("sound");
+            this.sound = nbt.getString("sound");
+        if (nbt.hasKey("sound_name"))
+            this.sound_name = nbt.getString("sound_name");
+        if (nbt.hasKey("sound_cat"))
+            this.sound_cat = nbt.getString("sound_cat");
     }
 
     @Override

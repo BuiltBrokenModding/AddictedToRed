@@ -4,6 +4,7 @@ import com.builtbroken.addictedtored.content.OCProxy;
 import com.builtbroken.addictedtored.content.chat.TileChatBlock;
 import com.builtbroken.addictedtored.content.detector.entity.TileEntityDetector;
 import com.builtbroken.addictedtored.content.detector.selection.TileSelectionDetector;
+import com.builtbroken.addictedtored.content.voice.EnumMCSounds;
 import com.builtbroken.addictedtored.content.voice.TileSoundEmitter;
 import com.builtbroken.mc.lib.mod.AbstractMod;
 import com.builtbroken.mc.lib.mod.ModCreativeTab;
@@ -89,6 +90,7 @@ public final class AddictedToRed extends AbstractMod
     public void postInit(FMLPostInitializationEvent event)
     {
         super.postInit(event);
+        EnumMCSounds.init();
     }
 
     @Override
