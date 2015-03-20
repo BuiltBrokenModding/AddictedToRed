@@ -1,4 +1,4 @@
-package com.builtbroken.addictedtored.content.chat;
+package com.builtbroken.addictedtored.content.chat.emitter;
 
 import com.builtbroken.addictedtored.AddictedToRed;
 import com.builtbroken.addictedtored.content.TileAbstractRedstone;
@@ -16,7 +16,6 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;

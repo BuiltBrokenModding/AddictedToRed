@@ -1,7 +1,7 @@
 package com.builtbroken.addictedtored;
 
 import com.builtbroken.addictedtored.content.OCProxy;
-import com.builtbroken.addictedtored.content.chat.TileChatBlock;
+import com.builtbroken.addictedtored.content.chat.emitter.TileChatBlock;
 import com.builtbroken.addictedtored.content.detector.entity.TileEntityDetector;
 import com.builtbroken.addictedtored.content.detector.selection.TileSelectionDetector;
 import com.builtbroken.addictedtored.content.voice.EnumMCSounds;

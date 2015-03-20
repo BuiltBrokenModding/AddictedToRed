@@ -1,4 +1,4 @@
-package com.builtbroken.addictedtored.content.chat;
+package com.builtbroken.addictedtored.content.chat.emitter;
 
 import com.builtbroken.jlib.data.Colors;
 import com.builtbroken.mc.core.References;
