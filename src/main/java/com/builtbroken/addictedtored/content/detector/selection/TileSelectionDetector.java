@@ -46,6 +46,16 @@ public class TileSelectionDetector extends TileAbstractDetector implements IGuiT
     }
 
     @Override
+    public void firstTick()
+    {
+        super.firstTick();
+        if(selection == null)
+        {
+            selection = new Cube(toPos().sub(5), toPos().add(5));
+        }
+    }
+
+    @Override
     public void onPostInit()
     {
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(AddictedToRed.selectionDetector, 1, 0), "wcw", "cec", "wcw", 'c', Items.ender_eye, 'e', new ItemStack(AddictedToRed.basicDetector, 1, 2), 'w', Items.emerald));
@@ -144,6 +154,7 @@ public class TileSelectionDetector extends TileAbstractDetector implements IGuiT
     public void writeToNBT(NBTTagCompound nbt)
     {
         super.writeToNBT(nbt);
-        nbt.setTag("selection", selection.toNBT());
+        if(selection != null)
+            nbt.setTag("selection", selection.toNBT());
     }
 }
