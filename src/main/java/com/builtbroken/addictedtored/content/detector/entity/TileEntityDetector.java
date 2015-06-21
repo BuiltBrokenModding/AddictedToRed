@@ -217,9 +217,9 @@ public class TileEntityDetector extends TileAbstractDetector implements IPacketI
     @Override @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister reg)
     {
-        this.basic_icon = reg.registerIcon(AddictedToRed.PREFIX + "detector.basic");
-        this.improved_icon = reg.registerIcon(AddictedToRed.PREFIX + "detector.improved");
-        this.advanced_icon = reg.registerIcon(AddictedToRed.PREFIX + "detector.advanced");
+        basic_icon = reg.registerIcon(AddictedToRed.PREFIX + "detector.basic");
+        improved_icon = reg.registerIcon(AddictedToRed.PREFIX + "detector.improved");
+        advanced_icon = reg.registerIcon(AddictedToRed.PREFIX + "detector.advanced");
     }
 
     @Override @SideOnly(Side.CLIENT)

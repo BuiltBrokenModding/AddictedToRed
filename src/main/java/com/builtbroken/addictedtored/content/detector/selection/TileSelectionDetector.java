@@ -127,7 +127,7 @@ public class TileSelectionDetector extends TileAbstractDetector implements IGuiT
     @Override @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister reg)
     {
-        this.basic_icon = reg.registerIcon(AddictedToRed.PREFIX + "detector.area");
+        basic_icon = reg.registerIcon(AddictedToRed.PREFIX + "detector.area");
     }
 
     @Override @SideOnly(Side.CLIENT)

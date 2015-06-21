@@ -4,5 +4,5 @@ public enum Tier
 {
     BASIC,
     IMPROVED,
-    ADVANCED;
+    ADVANCED
 }

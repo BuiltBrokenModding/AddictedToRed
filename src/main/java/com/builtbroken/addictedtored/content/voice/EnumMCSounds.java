@@ -103,12 +103,12 @@ public enum EnumMCSounds
     public static final HashMap<String, HashMap<String, Object>> catToSoundMap = new HashMap();
     private static boolean init = false;
 
-    private EnumMCSounds(String sound, String cat, String name)
+    EnumMCSounds(String sound, String cat, String name)
     {
         this(sound, cat, name, 1.0f, 1.0f);
     }
 
-    private EnumMCSounds(String sound, String cat, String name, float volume, float pitch)
+    EnumMCSounds(String sound, String cat, String name, float volume, float pitch)
     {
         this.sound = sound;
         this.cat = cat;

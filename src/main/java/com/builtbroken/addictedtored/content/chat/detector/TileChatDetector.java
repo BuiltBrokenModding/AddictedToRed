@@ -113,8 +113,8 @@ public class TileChatDetector extends TileAbstractRedstone
         return new TileChatDetector();
     }
 
-    public static enum MatchType
+    public enum MatchType
     {
-        START, CONTAINS, END, REGEX;
+        START, CONTAINS, END, REGEX
     }
 }

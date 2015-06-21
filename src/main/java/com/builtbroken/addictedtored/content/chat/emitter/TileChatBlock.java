@@ -171,7 +171,7 @@ public class TileChatBlock extends TileAbstractRedstone implements IGuiTile, IPa
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister reg)
     {
-        this.basic_icon = reg.registerIcon(AddictedToRed.PREFIX + "chat.basic");
+        basic_icon = reg.registerIcon(AddictedToRed.PREFIX + "chat.basic");
     }
 
     @Override
