@@ -29,7 +29,6 @@ apply plugin: 'com.github.kt3k.coveralls'
 apply plugin: 'jacoco'
 apply from: 'https://raw.githubusercontent.com/BuiltBrokenModding/BuiltBrokenScripts/buildScripts/scripts/forge/deps.gradle'
 
-
 println "version = "+ version
 
 println "Current Minecraft version = " + minecraft.apiVersion
@@ -56,6 +55,12 @@ processResources {
 		exclude '**/*.info'
 		exclude '**/*.properties'
 	}
+}
+
+dependencies 
+{
+    compile "dev.builtbroken.voltzengine:VoltzEngine:1.7.10-0.6.0+:deobf-dev"
+    //compile 'mysql:mysql-connector-java:5.1.36'
 }
 
 def getDate() {
