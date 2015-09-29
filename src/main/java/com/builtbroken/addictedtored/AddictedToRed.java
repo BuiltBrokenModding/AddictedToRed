@@ -30,7 +30,7 @@ public final class AddictedToRed extends AbstractMod
     public static final String PREFIX = DOMAIN + ":";
 
     /**
-     * The version of WatchYourStep.
+     * The version of AddictedToRed.
      */
     public static final String MAJOR_VERSION = "@MAJOR@";
     public static final String MINOR_VERSION = "@MINOR@";
