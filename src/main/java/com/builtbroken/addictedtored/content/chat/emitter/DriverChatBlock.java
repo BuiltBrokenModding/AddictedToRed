@@ -8,7 +8,7 @@ import li.cil.oc.api.prefab.DriverTileEntity;
 import li.cil.oc.integration.ManagedTileEntityEnvironment;
 import net.minecraft.world.World;
 
-/**
+/** Open Computers driver that handles interaction with the chat block
  * Created by robert on 3/2/2015.
  */
 public class DriverChatBlock extends DriverTileEntity

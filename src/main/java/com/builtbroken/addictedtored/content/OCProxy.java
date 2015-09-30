@@ -7,7 +7,7 @@ import com.builtbroken.mc.lib.mod.compat.Mods;
 import com.builtbroken.mc.lib.mod.loadable.AbstractLoadable;
 import li.cil.oc.api.Driver;
 
-/**
+/** Proxy that handles loading content for Open Computers
  * Created by robert on 3/2/2015.
  */
 public class OCProxy extends AbstractLoadable
@@ -15,7 +15,7 @@ public class OCProxy extends AbstractLoadable
     @Override
     public void init()
     {
-        AddictedToRed.INSTANCE.logger().info("Loaded Open Computer Support");
+        AddictedToRed.INSTANCE.logger().info("Loaded Open Computer Support...");
         Driver.add(new DriverChatBlock());
         Driver.add(new DriverEntityDetector());
     }
