@@ -19,7 +19,7 @@ import net.minecraft.block.Block;
 /**
  * Created by robert on 11/18/2014.
  */
-@Mod(modid = AddictedToRed.DOMAIN, name = AddictedToRed.NAME, version = AddictedToRed.VERSION, dependencies = "required-after:VoltzEngine")
+@Mod(modid = AddictedToRed.DOMAIN, name = AddictedToRed.NAME, version = AddictedToRed.VERSION, dependencies = "required-after:VoltzEngine;after:OpenComputers")
 public final class AddictedToRed extends AbstractMod
 {
     /**
@@ -30,7 +30,7 @@ public final class AddictedToRed extends AbstractMod
     public static final String PREFIX = DOMAIN + ":";
 
     /**
-     * The version of WatchYourStep.
+     * The version of AddictedToRed.
      */
     public static final String MAJOR_VERSION = "@MAJOR@";
     public static final String MINOR_VERSION = "@MINOR@";
