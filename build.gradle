@@ -59,7 +59,7 @@ processResources {
 
 dependencies 
 {
-    compile "dev.builtbroken.voltzengine:VoltzEngine:1.7.10-0.6.0+:deobf-dev"
+    compile "dev.builtbroken.voltzengine:VoltzEngine:1.7.10-0.6.2+:deobf-dev"
     //compile 'mysql:mysql-connector-java:5.1.36'
 }
 
