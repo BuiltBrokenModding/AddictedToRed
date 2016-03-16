@@ -1,0 +1,18 @@
+[{
+    "modid": "AddictedToRed,
+    "name": "${modname}",
+    "description": "${description}",
+    "version": "${version}",
+    "mcversion": "${mcversion}",
+    "url": "${url}",
+    "updateUrl": "",
+    "authors": ["DarkCow"],
+    "credits": "Dmod",
+    "logoFile": "",
+    "screenshots": [],
+    "parent": "",
+    "requiredMods": [],
+    "dependencies": [],
+    "dependants": [],
+    "useDependencyInformation": "false"
+}]
