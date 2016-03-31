@@ -8,6 +8,7 @@ import com.builtbroken.mc.core.network.packet.AbstractPacket;
 import com.builtbroken.mc.core.network.packet.PacketTile;
 import com.builtbroken.mc.core.network.packet.PacketType;
 import com.builtbroken.mc.core.registry.implement.IPostInit;
+import com.builtbroken.mc.lib.helper.recipe.OreNames;
 import com.builtbroken.mc.lib.transform.vector.Pos;
 import com.builtbroken.mc.prefab.gui.ContainerDummy;
 import com.builtbroken.mc.prefab.tile.Tile;
@@ -21,7 +22,6 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
@@ -54,7 +54,7 @@ public class TileChatBlock extends TileAbstractRedstone implements IGuiTile, IPa
     @Override
     public void onPostInit()
     {
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(AddictedToRed.chatBlock, 1, 0), "sps", "cec", "sps", 'c', Blocks.pumpkin, 'e', new ItemStack(AddictedToRed.basicDetector, 1, 1), 's', Items.iron_ingot, 'p', Blocks.sticky_piston));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(AddictedToRed.chatBlock, 1, 0), "sps", "cec", "sps", 'c', Blocks.pumpkin, 'e', new ItemStack(AddictedToRed.basicDetector, 1, 1), 's', OreNames.INGOT_IRON, 'p', Blocks.sticky_piston));
     }
 
     @Override

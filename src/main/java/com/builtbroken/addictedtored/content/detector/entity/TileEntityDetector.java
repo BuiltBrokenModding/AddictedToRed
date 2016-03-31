@@ -3,18 +3,17 @@ package com.builtbroken.addictedtored.content.detector.entity;
 import com.builtbroken.addictedtored.AddictedToRed;
 import com.builtbroken.addictedtored.content.Tier;
 import com.builtbroken.addictedtored.content.detector.TileAbstractDetector;
-import com.builtbroken.addictedtored.content.detector.TrackingData;
 import com.builtbroken.mc.api.tile.IGuiTile;
 import com.builtbroken.mc.core.network.IPacketIDReceiver;
 import com.builtbroken.mc.core.network.packet.AbstractPacket;
 import com.builtbroken.mc.core.network.packet.PacketTile;
 import com.builtbroken.mc.core.network.packet.PacketType;
 import com.builtbroken.mc.core.registry.implement.IPostInit;
+import com.builtbroken.mc.lib.helper.recipe.OreNames;
 import com.builtbroken.mc.lib.transform.vector.Pos;
 import com.builtbroken.mc.prefab.entity.selector.EntitySelectors;
 import com.builtbroken.mc.prefab.gui.ContainerDummy;
 import com.builtbroken.mc.prefab.tile.Tile;
-import com.builtbroken.mc.prefab.tile.item.ItemBlockMetadata;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -22,7 +21,6 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -33,7 +31,6 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -62,9 +59,9 @@ public class TileEntityDetector extends TileAbstractDetector implements IPacketI
     @Override
     public void onPostInit()
     {
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(AddictedToRed.basicDetector, 1, 0), "wsw", "cec", "wsw", 'c', Items.comparator, 'e', Items.ender_pearl, 's', Blocks.stone_slab, 'w', Blocks.planks));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(AddictedToRed.basicDetector, 1, 1), "sls", "cec", "sls", 'c', Items.ender_pearl, 'e', new ItemStack(AddictedToRed.basicDetector, 1, 0), 's', Blocks.stone, 'l', Blocks.lever));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(AddictedToRed.basicDetector, 1, 2), "sls", "cec", "sls", 'c', Items.ender_pearl, 'e', new ItemStack(AddictedToRed.basicDetector, 1, 1), 's', Items.iron_ingot, 'l', Items.gold_ingot));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(AddictedToRed.basicDetector, 1, 0), "wsw", "cec", "wsw", 'c', Items.comparator, 'e', Items.ender_pearl, 's', Blocks.stone_slab, 'w', OreNames.INGOT_IRON));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(AddictedToRed.basicDetector, 1, 1), "sls", "cec", "sls", 'c', Items.ender_pearl, 'e', new ItemStack(AddictedToRed.basicDetector, 1, 0), 's', OreNames.STONE, 'l', Blocks.lever));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(AddictedToRed.basicDetector, 1, 2), "sls", "cec", "sls", 'c', Items.ender_pearl, 'e', new ItemStack(AddictedToRed.basicDetector, 1, 1), 's', OreNames.INGOT_IRON, 'l', OreNames.INGOT_GOLD));
     }
 
     @Override

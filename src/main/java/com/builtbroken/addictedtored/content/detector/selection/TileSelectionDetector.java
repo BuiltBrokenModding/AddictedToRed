@@ -9,6 +9,7 @@ import com.builtbroken.mc.core.network.packet.AbstractPacket;
 import com.builtbroken.mc.core.network.packet.PacketTile;
 import com.builtbroken.mc.core.network.packet.PacketType;
 import com.builtbroken.mc.core.registry.implement.IPostInit;
+import com.builtbroken.mc.lib.helper.recipe.OreNames;
 import com.builtbroken.mc.lib.transform.region.Cube;
 import com.builtbroken.mc.lib.transform.vector.Pos;
 import com.builtbroken.mc.prefab.entity.selector.EntitySelectors;
@@ -21,7 +22,6 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -58,7 +58,7 @@ public class TileSelectionDetector extends TileAbstractDetector implements IGuiT
     @Override
     public void onPostInit()
     {
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(AddictedToRed.selectionDetector, 1, 0), "wcw", "cec", "wcw", 'c', Items.ender_eye, 'e', new ItemStack(AddictedToRed.basicDetector, 1, 2), 'w', Items.emerald));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(AddictedToRed.selectionDetector, 1, 0), "wcw", "cec", "wcw", 'c', Items.ender_eye, 'e', new ItemStack(AddictedToRed.basicDetector, 1, 2), 'w', OreNames.EMERALD));
     }
 
     @Override
