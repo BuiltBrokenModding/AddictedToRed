@@ -2,7 +2,7 @@ package com.builtbroken.addictedtored.content.voice;
 
 import com.builtbroken.addictedtored.content.Tier;
 import com.builtbroken.jlib.data.Colors;
-import com.builtbroken.mc.core.References;
+import com.builtbroken.mc.client.SharedAssets;
 import com.builtbroken.mc.prefab.gui.GuiContainerBase;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
@@ -29,7 +29,7 @@ public class GuiSoundBlock extends GuiContainerBase
     public GuiSoundBlock(TileSoundEmitter launcher, EntityPlayer player)
     {
         this.machine = launcher;
-        this.baseTexture = References.GUI__MC_EMPTY_FILE;
+        this.baseTexture = SharedAssets.GUI__MC_EMPTY_FILE;
     }
 
     @Override
