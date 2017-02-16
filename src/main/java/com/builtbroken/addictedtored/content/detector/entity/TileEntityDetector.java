@@ -27,6 +27,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.oredict.ShapedOreRecipe;
@@ -80,7 +81,7 @@ public class TileEntityDetector extends TileAbstractDetector implements IPacketI
 
     protected boolean isTargetValid()
     {
-        return target != null && target.isAboveBedrock() && target.distance(new Pos(this).add(0.5)) <= MAX_RANGE;
+        return target != null && target.isAboveBedrock() && target.distance(new Pos((TileEntity)this).add(0.5)) <= MAX_RANGE;
     }
 
     @Override
@@ -88,7 +89,7 @@ public class TileEntityDetector extends TileAbstractDetector implements IPacketI
     {
         if (target == null || target.yi() == -1)
         {
-            target = new Pos(this);
+            target = new Pos((TileEntity)this);
         }
         if (isRangeValid() && isTargetValid())
         {

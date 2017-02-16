@@ -25,6 +25,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.oredict.ShapedOreRecipe;
@@ -66,7 +67,7 @@ public class TileSelectionDetector extends TileAbstractDetector implements IGuiT
     {
         if(selection == null || !selection.isValid() || selection.max().distance(xCoord + 0.5, yCoord + 0.5, zCoord + 0.5) > maxRange || selection.min().distance(xCoord + 0.5, yCoord + 0.5, zCoord + 0.5) > maxRange)
         {
-            selection = new Cube(new Pos(this).sub(10), new Pos(this).add(10));
+            selection = new Cube(new Pos((TileEntity)this).sub(10), new Pos((TileEntity)this).add(10));
         }
         return selection.toAABB();
     }

@@ -5,6 +5,7 @@ import com.builtbroken.mc.lib.transform.vector.Pos;
 import com.builtbroken.mc.prefab.tile.Tile;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.block.material.Material;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.ServerChatEvent;
 
@@ -48,7 +49,7 @@ public class TileChatDetector extends TileAbstractRedstone
     {
         super.firstTick();
         if (target == null || !target.isAboveBedrock())
-            target = new Pos(this).add(0.5);
+            target = new Pos((TileEntity)this).add(0.5);
         MinecraftForge.EVENT_BUS.register(this);
         this.invalidate();
     }

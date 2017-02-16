@@ -24,6 +24,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IIcon;
@@ -62,7 +63,7 @@ public class TileChatBlock extends TileAbstractRedstone implements IGuiTile, IPa
     {
         if (target == null || !target.isAboveBedrock())
         {
-            target = new Pos(this).add(0.5);
+            target = new Pos((TileEntity)this).add(0.5);
         }
         if (range == null || !range.isAboveBedrock())
         {
