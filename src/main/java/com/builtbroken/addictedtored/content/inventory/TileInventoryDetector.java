@@ -1,6 +1,6 @@
 package com.builtbroken.addictedtored.content.inventory;
 
-import com.builtbroken.mc.prefab.inventory.filters.IInventoryFilter;
+import com.builtbroken.mc.api.IInventoryFilter;
 
 /**
  * Used to detect values inside of inventories

@@ -3,7 +3,7 @@ package com.builtbroken.addictedtored.content.chat.detector;
 import com.builtbroken.addictedtored.content.chat.emitter.TileChatBlock;
 import com.builtbroken.jlib.data.Colors;
 import com.builtbroken.mc.client.SharedAssets;
-import com.builtbroken.mc.lib.transform.vector.Pos;
+import com.builtbroken.mc.imp.transform.vector.Pos;
 import com.builtbroken.mc.prefab.gui.GuiContainerBase;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;

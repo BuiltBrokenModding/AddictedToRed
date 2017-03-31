@@ -8,7 +8,7 @@ import com.builtbroken.addictedtored.content.voice.EnumMCSounds;
 import com.builtbroken.addictedtored.content.voice.TileSoundEmitter;
 import com.builtbroken.mc.lib.mod.AbstractMod;
 import com.builtbroken.mc.lib.mod.ModCreativeTab;
-import com.builtbroken.mc.lib.mod.compat.Mods;
+import com.builtbroken.mc.lib.mod.Mods;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;

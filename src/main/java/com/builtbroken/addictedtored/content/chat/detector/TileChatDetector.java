@@ -1,7 +1,7 @@
 package com.builtbroken.addictedtored.content.chat.detector;
 
 import com.builtbroken.addictedtored.content.TileAbstractRedstone;
-import com.builtbroken.mc.lib.transform.vector.Pos;
+import com.builtbroken.mc.imp.transform.vector.Pos;
 import com.builtbroken.mc.prefab.tile.Tile;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.block.material.Material;

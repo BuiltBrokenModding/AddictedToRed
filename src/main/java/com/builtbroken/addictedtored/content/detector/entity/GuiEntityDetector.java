@@ -3,7 +3,7 @@ package com.builtbroken.addictedtored.content.detector.entity;
 import com.builtbroken.addictedtored.content.Tier;
 import com.builtbroken.jlib.data.Colors;
 import com.builtbroken.mc.client.SharedAssets;
-import com.builtbroken.mc.lib.transform.vector.Pos;
+import com.builtbroken.mc.imp.transform.vector.Pos;
 import com.builtbroken.mc.prefab.entity.selector.EntitySelectors;
 import com.builtbroken.mc.prefab.gui.GuiContainerBase;
 import net.minecraft.client.gui.GuiButton;
