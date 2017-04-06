@@ -2,7 +2,7 @@ package com.builtbroken.addictedtored.content.chat.emitter;
 
 import com.builtbroken.addictedtored.AddictedToRed;
 import com.builtbroken.addictedtored.content.TileAbstractRedstone;
-import com.builtbroken.mc.api.tile.IGuiTile;
+import com.builtbroken.mc.api.tile.access.IGuiTile;
 import com.builtbroken.mc.core.network.IPacketIDReceiver;
 import com.builtbroken.mc.core.network.packet.AbstractPacket;
 import com.builtbroken.mc.core.network.packet.PacketTile;

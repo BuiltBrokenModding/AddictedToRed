@@ -3,7 +3,7 @@ package com.builtbroken.addictedtored.content.voice;
 import com.builtbroken.addictedtored.AddictedToRed;
 import com.builtbroken.addictedtored.content.Tier;
 import com.builtbroken.addictedtored.content.TileAbstractRedstone;
-import com.builtbroken.mc.api.tile.IGuiTile;
+import com.builtbroken.mc.api.tile.access.IGuiTile;
 import com.builtbroken.mc.core.network.packet.AbstractPacket;
 import com.builtbroken.mc.core.network.packet.PacketTile;
 import com.builtbroken.mc.core.network.packet.PacketType;

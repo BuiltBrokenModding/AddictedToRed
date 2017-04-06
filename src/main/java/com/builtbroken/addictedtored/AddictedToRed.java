@@ -19,7 +19,7 @@ import net.minecraft.block.Block;
 /**
  * Created by robert on 11/18/2014.
  */
-@Mod(modid = AddictedToRed.DOMAIN, name = AddictedToRed.NAME, version = AddictedToRed.VERSION, dependencies = "required-after:VoltzEngine;after:OpenComputers")
+@Mod(modid = AddictedToRed.DOMAIN, name = AddictedToRed.NAME, version = AddictedToRed.VERSION, dependencies = "required-after:voltzengine;after:OpenComputers")
 public final class AddictedToRed extends AbstractMod
 {
     /**
