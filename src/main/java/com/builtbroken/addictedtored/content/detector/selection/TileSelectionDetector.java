@@ -5,7 +5,7 @@ import com.builtbroken.addictedtored.content.detector.TileAbstractDetector;
 import com.builtbroken.jlib.data.vector.IPos3D;
 import com.builtbroken.mc.api.tile.access.IGuiTile;
 import com.builtbroken.mc.core.network.IPacketIDReceiver;
-import com.builtbroken.mc.core.network.packet.AbstractPacket;
+import com.builtbroken.mc.api.data.IPacket;
 import com.builtbroken.mc.core.network.packet.PacketTile;
 import com.builtbroken.mc.core.network.packet.PacketType;
 import com.builtbroken.mc.core.registry.implement.IPostInit;
@@ -120,7 +120,7 @@ public class TileSelectionDetector extends TileAbstractDetector implements IGuiT
     }
 
     @Override
-    public AbstractPacket getDescPacket()
+    public IPacket getDescPacket()
     {
         return new PacketTile(this, 0, selection != null ? selection : new Cube(), selector.ordinal());
     }

@@ -4,7 +4,7 @@ import com.builtbroken.addictedtored.AddictedToRed;
 import com.builtbroken.addictedtored.content.Tier;
 import com.builtbroken.addictedtored.content.TileAbstractRedstone;
 import com.builtbroken.mc.api.tile.access.IGuiTile;
-import com.builtbroken.mc.core.network.packet.AbstractPacket;
+import com.builtbroken.mc.api.data.IPacket;
 import com.builtbroken.mc.core.network.packet.PacketTile;
 import com.builtbroken.mc.core.network.packet.PacketType;
 import com.builtbroken.mc.imp.transform.vector.Location;
@@ -74,7 +74,7 @@ public class TileSoundEmitter extends TileAbstractRedstone implements IGuiTile
     }
 
     @Override
-    public AbstractPacket getDescPacket()
+    public IPacket getDescPacket()
     {
         if (tier != Tier.ADVANCED)
         {
