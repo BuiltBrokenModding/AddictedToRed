@@ -3,8 +3,8 @@ package com.builtbroken.addictedtored.content;
 import com.builtbroken.addictedtored.AddictedToRed;
 import com.builtbroken.addictedtored.content.chat.emitter.DriverChatBlock;
 import com.builtbroken.addictedtored.content.detector.entity.DriverEntityDetector;
-import com.builtbroken.mc.lib.mod.Mods;
-import com.builtbroken.mc.lib.mod.loadable.AbstractLoadable;
+import com.builtbroken.mc.framework.mod.Mods;
+import com.builtbroken.mc.framework.mod.loadable.AbstractLoadable;
 import li.cil.oc.api.Driver;
 
 /** Proxy that handles loading content for Open Computers

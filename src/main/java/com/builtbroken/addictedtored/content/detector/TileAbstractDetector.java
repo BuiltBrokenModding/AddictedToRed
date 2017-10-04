@@ -41,7 +41,7 @@ public abstract class TileAbstractDetector extends Tile
             if (bb != null)
             {
                 int s = entities.size();
-                List<Entity> list = world().selectEntitiesWithinAABB(Entity.class, bb, selector.selector());
+                List<Entity> list = oldWorld().selectEntitiesWithinAABB(Entity.class, bb, selector.selector());
 
                 Iterator<TrackingData> it = entities.iterator();
                 while (it.hasNext())
@@ -69,7 +69,7 @@ public abstract class TileAbstractDetector extends Tile
 
                 if (s != entities.size())
                 {
-                    world().notifyBlocksOfNeighborChange(xi(), yi(), zi(), this.getTileBlock());
+                    oldWorld().notifyBlocksOfNeighborChange(xi(), yi(), zi(), this.getTileBlock());
                 }
             }
         }

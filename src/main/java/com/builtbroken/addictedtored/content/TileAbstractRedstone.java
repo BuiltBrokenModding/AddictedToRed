@@ -33,7 +33,7 @@ public abstract class TileAbstractRedstone extends Tile implements IPacketIDRece
     @Override
     public void onNeighborChanged(Block block)
     {
-        boolean red = world().isBlockIndirectlyGettingPowered(xi(), yi(), zi());
+        boolean red = oldWorld().isBlockIndirectlyGettingPowered(xi(), yi(), zi());
         if (!prev_signal && red)
         {
             triggerRedstone();
@@ -98,8 +98,8 @@ public abstract class TileAbstractRedstone extends Tile implements IPacketIDRece
 
     protected void sendRedstoneSignalPacket()
     {
-        if (world() != null && isServer())
-            sendPacket(new PacketTile(this, 22, world().isBlockIndirectlyGettingPowered(xi(), yi(), zi())));
+        if (oldWorld() != null && isServer())
+            sendPacket(new PacketTile(this, 22, oldWorld().isBlockIndirectlyGettingPowered(xi(), yi(), zi())));
     }
 
     @Override

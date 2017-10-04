@@ -71,7 +71,7 @@ public class TileChatBlock extends TileAbstractRedstone implements IGuiTile, IPa
         }
 
         AxisAlignedBB bb = AxisAlignedBB.getBoundingBox(target.x() - range.x(), target.y() - range.y(), target.z() - range.z(), target.x() + range.x(), target.y() + range.y(), target.z() + range.z());
-        List<EntityPlayer> list = world().getEntitiesWithinAABB(EntityPlayer.class, bb);
+        List<EntityPlayer> list = oldWorld().getEntitiesWithinAABB(EntityPlayer.class, bb);
         for (EntityPlayer player : list)
         {
             player.addChatComponentMessage(new ChatComponentText("" + output_msg));

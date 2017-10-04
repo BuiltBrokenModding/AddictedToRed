@@ -64,7 +64,7 @@ public class TileSoundEmitter extends TileAbstractRedstone implements IGuiTile
             }
             else
             {
-                world().playSound(x() + 0.5, y() + 0.5, z() + 0.5, getSoundName(), getVolume(), getPitch(), true);
+                oldWorld().playSound(x() + 0.5, y() + 0.5, z() + 0.5, getSoundName(), getVolume(), getPitch(), true);
             }
         }
         else

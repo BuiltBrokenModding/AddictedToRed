@@ -72,7 +72,7 @@ public class TileChatDetector extends TileAbstractRedstone
             if (!detectUsername || users.contains(event.username.toLowerCase()))
             {
                 //Check if dim matches
-                if (!detectSameDimOnly || world() == event.player.worldObj)
+                if (!detectSameDimOnly || oldWorld() == event.player.worldObj)
                 {
                     //Check if range is good
                     if (!detectLocalMsgOnly || new Pos(event.player).distance(target) <= range)

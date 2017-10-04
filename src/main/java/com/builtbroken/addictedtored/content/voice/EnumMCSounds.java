@@ -142,11 +142,11 @@ public enum EnumMCSounds
                 Object obj = catToSoundMap.get(cat).get(name);
                 if (obj instanceof EnumMCSounds)
                 {
-                    ((EnumMCSounds) obj).playSound(pos.world(), pos.x(), pos.y(), pos.z(), volume, pitch);
+                    ((EnumMCSounds) obj).playSound(pos.oldWorld(), pos.x(), pos.y(), pos.z(), volume, pitch);
                 }
                 else if (obj instanceof String)
                 {
-                    pos.world().playSound(pos.x(), pos.y(), pos.z(), (String) obj, volume, pitch, true);
+                    pos.oldWorld().playSound(pos.x(), pos.y(), pos.z(), (String) obj, volume, pitch, true);
                 }
             }
         }
@@ -154,7 +154,7 @@ public enum EnumMCSounds
 
     public void playSound(IWorldPosition pos)
     {
-        playSound(pos.world(), pos.x(), pos.y(), pos.z(), volume, pitch);
+        playSound(pos.oldWorld(), pos.x(), pos.y(), pos.z(), volume, pitch);
     }
 
     public void playSound(World world, IPos3D pos)
